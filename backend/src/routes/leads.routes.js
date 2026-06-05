@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/leads.controller');
+const { protect, adminOnly } = require('../middleware/auth');
+const { body, validationResult } = require('express-validator');
+const validate = (req, res, next) => { const errors = validationResult(req); if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() }); next(); };
+router.post('/', [body('name').trim().notEmpty(), body('email').isEmail().normalizeEmail(), body('message').trim().notEmpty()], validate, ctrl.create);
+router.get('/', protect, adminOnly, ctrl.list);
+router.patch('/:id', protect, adminOnly, ctrl.updateStatus);
+router.delete('/:id', protect, adminOnly, ctrl.remove);
+module.exports = router;
