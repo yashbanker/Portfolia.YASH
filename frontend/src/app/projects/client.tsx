@@ -51,8 +51,14 @@ export function ProjectsClient({ projects }: { projects: any[] }) {
                 className="group rounded-2xl overflow-hidden border border-border bg-card hover:border-blue-500/40 transition-all flex flex-col">
                 <Link href={`/projects/${p.slug}`} className="block">
                   <div className="aspect-[16/10] bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-cyan-500/20 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-grid-pattern bg-[size:30px_30px] opacity-30" />
-                    <div className="absolute inset-0 flex items-center justify-center p-4"><div className="text-center"><Badge variant="glass" className="mb-2">{p.category}</Badge><h3 className="text-lg font-bold line-clamp-2">{p.title}</h3></div></div>
+                    {p.thumbnail && p.thumbnail !== '' ? (
+                      <img src={p.thumbnail} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-grid-pattern bg-[size:30px_30px] opacity-30" />
+                        <div className="absolute inset-0 flex items-center justify-center p-4"><div className="text-center"><Badge variant="glass" className="mb-2">{p.category}</Badge><h3 className="text-lg font-bold line-clamp-2">{p.title}</h3></div></div>
+                      </>
+                    )}
                   </div>
                 </Link>
                 <div className="p-5 flex-1 flex flex-col">
